@@ -10,6 +10,10 @@ urlpatterns = patterns('',
     url(r'^$', 'fincapdev.views.landing', name='landing'),
     url(r'^dashboard$', 'fincapdev.views.dashboard', name='dashboard'),
     url(r'^network_view$', 'fincapdev.views.network_view', name='network_view'),
+    #Linkedin
+    url(r'^linkedinauthentication$', 'fincapdev.views.linkedinauthentication', name='linkedinauthentication'),
+    #Stripe
+    url(r'^stripepayment/$', 'fincapdev.views.stripepayment', name='stripepayment'),
 
     url(r'^admin/', include(admin.site.urls)),
 )
