@@ -12,11 +12,17 @@ from django.core.context_processors import csrf
 def landing(request):
     return render(request, 'landing.html')
 
-#def dashboard(request):
-#	return render(request, 'dashboard.html')
-
-def network_view(request):
-	return render(request, 'network_view.html')
+def network_view(request, pool_id=-1):
+    if network_view == -1:
+        return render(request, 'network_view.html')
+    else:
+        transaction_list = []
+        pool_count = int(pool_id) * int(pool_id) + 5 # just provide a random number
+        return render(request, 'network_view.html', {
+             'pool_id': pool_id,
+             'pool_count': pool_count,
+             'transaction_list': transaction_list}
+        )
 
 ########## FUNCTIONS ##########
 
@@ -29,12 +35,13 @@ USER_TOKEN = '***REMOVED***'
 USER_SECRET = '***REMOVED***'
 ETURN_URL = 'http://localhost:5000'
 PREDEFINED_STATE = 'DCEEFWF45453sdffef424' #NEEDS TO BE UPDATED
+RETURN_URI_TARGET = 'dashboard'
 
 
 def linkedinauthentication(request):
 	API_KEY = CONSUMER_KEY
 	STATE = PREDEFINED_STATE
-	REDIRECT_URI = request.build_absolute_uri('dashboard')
+	REDIRECT_URI = request.build_absolute_uri(RETURN_URI_TARGET)
 	redirect_url = "https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%s&state=%s&redirect_uri=%s" % (API_KEY, STATE, REDIRECT_URI)
 	return redirect(redirect_url)
 
@@ -46,7 +53,7 @@ def dashboard(request):
 	state = current_url[state_position+7:]
 	if state == PREDEFINED_STATE:
 		AUTH_CODE = authorization_code
-	        REDIRECT_URI = request.build_absolute_uri('dashboard')
+	        REDIRECT_URI = request.build_absolute_uri(RETURN_URI_TARGET)
 		API_KEY = CONSUMER_KEY
 		SECRET_KEY = CONSUMER_SECRET
 		post_url = "https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=%s&redirect_uri=%s&client_id=%s&client_secret=%s" % (AUTH_CODE, REDIRECT_URI, API_KEY, SECRET_KEY)
@@ -135,6 +142,9 @@ def dashboard(request):
 			'full_name_8': full_name_8,
 			'full_name_9': full_name_9,
 			'full_name_10': full_name_10})
+        else:
+                # Just return the dashboard for static testing
+                return render(request, 'dashboard.html')
 
 ########## STRIPE ##########
 def stripepayment(request):
@@ -154,6 +164,8 @@ def stripepayment(request):
   			email=email_address
 		)
   		return render(request, 'dashboard.html')
+
+
 
 #<form action="/stripepayment/" method="POST">
 #			{% csrf_token %}

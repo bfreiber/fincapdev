@@ -17,3 +17,7 @@
 div.pools {
   text-align: center;
 }
+
+div.pool {
+  display: inline-block;
+}

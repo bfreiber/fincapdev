@@ -79,13 +79,13 @@
           <div class="row placeholders pools">
             <div class="pool" id="pool1">
               <div id="pool1img"></div>
-              <h4>Pool 1</h4>
-              <span class="text-muted">15 people</span>
+              <h4><a href="{% url 'network_view' 1%}">Pool 1</a></h4>
+              <span class="text-muted">15 members</span>
             </div>
             <div class="pool" id="pool2">
               <div id="pool2img"></div>
-              <h4>Pool 2</h4>
-              <span class="text-muted">8 people</span>
+              <h4><a href="{% url 'network_view' 2%}">Pool 2</a></h4>
+              <span class="text-muted">8 members</span>
             </div>
           </div>
 
@@ -102,7 +102,7 @@
     <script src="{% static "d3/d3.js" %}"></script>
     <script src="{% static "fincapdev/dashboard.js" %}"></script>
     <script>
-       showPool("#pool1img", "{% static "fincapdev/test_data.json" %}");
+       showPool("#pool1img", "{% static "fincapdev/test_data3.json" %}");
        showPool("#pool2img", "{% static "fincapdev/test_data2.json" %}"); 
     </script>
   </body>

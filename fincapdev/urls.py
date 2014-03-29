@@ -9,7 +9,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'fincapdev.views.landing', name='landing'),
     url(r'^dashboard$', 'fincapdev.views.dashboard', name='dashboard'),
-    url(r'^network_view$', 'fincapdev.views.network_view', name='network_view'),
+    url(r'^network_view/$', 'fincapdev.views.network_view', name='network_view'),
+    url(r'^network_view/(?P<pool_id>\d+)/$', 'fincapdev.views.network_view', name='network_view'),
     #Linkedin
     url(r'^linkedinauthentication$', 'fincapdev.views.linkedinauthentication', name='linkedinauthentication'),
     #Stripe
