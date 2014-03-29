@@ -29,12 +29,12 @@ USER_TOKEN = '***REMOVED***'
 USER_SECRET = '***REMOVED***'
 ETURN_URL = 'http://localhost:5000'
 PREDEFINED_STATE = 'DCEEFWF45453sdffef424' #NEEDS TO BE UPDATED
-REDIRECT_URI_FINAL = 'http://0.0.0.0:5000/dashboard'
+
 
 def linkedinauthentication(request):
 	API_KEY = CONSUMER_KEY
 	STATE = PREDEFINED_STATE
-	REDIRECT_URI = REDIRECT_URI_FINAL
+	REDIRECT_URI = request.build_absolute_uri('dashboard')
 	redirect_url = "https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=%s&state=%s&redirect_uri=%s" % (API_KEY, STATE, REDIRECT_URI)
 	return redirect(redirect_url)
 
@@ -46,7 +46,7 @@ def dashboard(request):
 	state = current_url[state_position+7:]
 	if state == PREDEFINED_STATE:
 		AUTH_CODE = authorization_code
-		REDIRECT_URI = REDIRECT_URI_FINAL
+	        REDIRECT_URI = request.build_absolute_uri('dashboard')
 		API_KEY = CONSUMER_KEY
 		SECRET_KEY = CONSUMER_SECRET
 		post_url = "https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&code=%s&redirect_uri=%s&client_id=%s&client_secret=%s" % (AUTH_CODE, REDIRECT_URI, API_KEY, SECRET_KEY)
@@ -80,6 +80,11 @@ def dashboard(request):
 		########## FRIEND CONNECTION TEST ##########
 		friends_using_app = []
 		friend_test_list = [['Issac','Tsang'], ['Wabba', 'Dabba Dee Doo'], ['Justin', 'Warner'], ['Michelle', 'Winters'], ['Vi', 'Hoang'], ['Mark', 'Ramadan'], ['Walker', 'Williams'], ['Ali', 'Ozler'], ['Ben', 'Xiong'], ['Rachel', 'Katz'], ['Kelly', 'Knewton'], ['Amy', 'Radin'], ['Geoff', 'Judge']]
+
+                try:
+                    from test_data import friend_test_list 
+                except ImportError, e:
+                    print("No test_data.py data")
 		for i in range(len(connections_list)):
 			for friend in friend_test_list:
 				if friend[0] == connections_list[i][0] and friend[1] == connections_list[i][1]:

@@ -3,3 +3,4 @@ venv
 staticfiles
 
 *.swp
+test_data.py
