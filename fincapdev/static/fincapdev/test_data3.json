@@ -1,0 +1,19 @@
+{
+  "name": "Me",
+  "children": [
+  {
+    "name": "John Doe 1",
+    "children": [
+       {"name": "User 2", "size": 100},
+       {"name": "User 3", "size": 200}
+    ]
+  },
+  {
+     "name": "Jane Doe 1",
+     "children": [
+       {"name": "Wabba Dabba Dee Doo", "size": 100},
+       {"name": "Michelle Winters", "size": 1000}
+     ]
+  }
+  ]
+}
