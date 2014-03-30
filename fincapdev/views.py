@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import oauth2 as oauth
 import urlparse
@@ -6,6 +7,7 @@ import json
 import xml.etree.ElementTree as ET
 import stripe
 from django.core.context_processors import csrf
+from helpers import json_connections
 
 ########## PAGES ##########
 
@@ -17,11 +19,28 @@ def network_view(request, pool_id=-1):
         return render(request, 'network_view.html')
     else:
         transaction_list = []
-        pool_count = int(pool_id) * int(pool_id) + 5 # just provide a random number
+        pool_id_int = int(pool_id)
+        pool_count = 0
+        if pool_id_int == 1:
+            pool_count = 5
+            pool_range_start = 1
+            pool_range_end = 4
+            amt_available = 502
+            is_subscribed = False
+        elif pool_id_int == 2:
+            pool_count = 6
+            pool_range_start = 5
+            pool_range_end = 10
+            amt_available = 937
+            is_subscribed = True
         return render(request, 'network_view.html', {
              'pool_id': pool_id,
              'pool_count': pool_count,
-             'transaction_list': transaction_list}
+             'pool_range_start': pool_range_start,
+             'pool_range_end': pool_range_end,
+             'transaction_list': transaction_list,
+             'amt_available': amt_available,
+             'is_subscribed': is_subscribed}
         )
 
 ########## FUNCTIONS ##########
@@ -97,6 +116,9 @@ def dashboard(request):
 				if friend[0] == connections_list[i][0] and friend[1] == connections_list[i][1]:
 					friends_using_app.append(connections_list[i])
 
+                json_friends = json_connections(friends_using_app)
+                request.session['friends'] = friends_using_app
+
 		pic_1 = friends_using_app[0][2]
 		pic_2 = friends_using_app[1][2]
 		pic_3 = friends_using_app[2][2]
@@ -141,10 +163,21 @@ def dashboard(request):
 			'full_name_7': full_name_7,
 			'full_name_8': full_name_8,
 			'full_name_9': full_name_9,
-			'full_name_10': full_name_10})
+			'full_name_10': full_name_10,
+                        'json_friends': json_friends})
         else:
                 # Just return the dashboard for static testing
-                return render(request, 'dashboard.html')
+                json_friends = json_connections(request.session.get('friends'))
+                return render(request, 'dashboard.html', 
+                              {'json_friends': json_friends})
+
+def friends_list(request, range_start=None, range_end=None):
+    if range_start is not None and range_end is not None:
+        narrow_list = request.session.get('friends')[int(range_start):int(range_end) + 1]
+    else:
+        narrow_list = request.session.get('friends')
+    res = json_connections(narrow_list)
+    return HttpResponse(res, content_type="application/json")
 
 ########## STRIPE ##########
 def stripepayment(request):
@@ -163,16 +196,9 @@ def stripepayment(request):
  			plan="fincapdev",
   			email=email_address
 		)
-  		return render(request, 'dashboard.html')
+  		return redirect('dashboard')
 
 
-
-#<form action="/stripepayment/" method="POST">
-#			{% csrf_token %}
- # 			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_zVrX6MQHWxIfaXvaA8Z4pNR4" data-amount="500" data-name="fincapdev" data-description="fincapdev hack subscription ($5.00/week)" data-image="tbd" data-shipping-address="true" data-label="fincapdev hack subscription" data-panel-label="Subscribe @">
-  #			</script>
-	#	</form>
-
-
-
-
+def logout(request):
+    del request.session['friends']
+    return redirect('landing')

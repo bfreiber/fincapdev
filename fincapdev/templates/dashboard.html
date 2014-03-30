@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{% static "bootstrap/favicon.ico" %}">
 
-    <title>IHaveNoIdea - Dashboard</title>
+    <title>VoliShare - Dashboard</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
@@ -39,11 +39,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{% url "landing" %}">IHaveNoIdea</a>
+          <a class="navbar-brand" href="{% url "landing" %}">VoliShare</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Help</a></li>
@@ -70,7 +70,7 @@
           <ul class="nav nav-sidebar">
             <li><a href="">My Account</a></li>
             <li><a href="">Settings</a></li>
-            <li><a href="{% url "landing" %}">Log Out</a></li>
+            <li><a href="{% url "logout" %}">Log Out</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -80,7 +80,7 @@
             <div class="pool" id="pool1">
               <div id="pool1img"></div>
               <h4><a href="{% url 'network_view' 1%}">Pool 1</a></h4>
-              <span class="text-muted">15 members</span>
+              <span class="text-muted">5 members</span>
               <div class="subscribe">
                 <form action="/stripepayment/" method="POST">
                   {% csrf_token %}
@@ -92,7 +92,7 @@
             <div class="pool" id="pool2">
               <div id="pool2img"></div>
               <h4><a href="{% url 'network_view' 2%}">Pool 2</a></h4>
-              <span class="text-muted">8 members</span>
+              <span class="text-muted">6 members</span>
               <div class="subscribe">
                 <button type="button" class="btn btn-success">Subscribed</button>
               </div>
@@ -128,6 +128,10 @@
      <li>{{ pic_9 }}
      <li>{{ pic_10}}
   </ol>
+  <p>Json:
+  <ul>
+    <li>{{ json_friends }}
+  </ul>
   </div>
         </div>
  </div> 
@@ -142,9 +146,9 @@
     <script src="{% static "d3/d3.js" %}"></script>
     <script src="{% static "fincapdev/dashboard.js" %}"></script>
     <script>
-       showPool("#pool1img", "{% static "fincapdev/test_data3.json" %}",
-           '{{ pic_1 }}');
-       showPool("#pool2img", "{% static "fincapdev/test_data4.json" %}"); 
+       var friends = {{ json_friends | safe }};
+       showPool("#pool1img", "{% url 'friendslist_range' 1 4 %}");
+       showPool("#pool2img", "{% url 'friendslist_range' 5 10 %}"); 
     </script>
   </body>
 </html>
