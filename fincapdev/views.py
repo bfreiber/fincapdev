@@ -19,11 +19,28 @@ def network_view(request, pool_id=-1):
         return render(request, 'network_view.html')
     else:
         transaction_list = []
-        pool_count = int(pool_id) * int(pool_id) + 5 # just provide a random number
+        pool_id_int = int(pool_id)
+        pool_count = 0
+        if pool_id_int == 1:
+            pool_count = 5
+            pool_range_start = 1
+            pool_range_end = 4
+            amt_available = 502
+            is_subscribed = False
+        elif pool_id_int == 2:
+            pool_count = 6
+            pool_range_start = 5
+            pool_range_end = 10
+            amt_available = 937
+            is_subscribed = True
         return render(request, 'network_view.html', {
              'pool_id': pool_id,
              'pool_count': pool_count,
-             'transaction_list': transaction_list}
+             'pool_range_start': pool_range_start,
+             'pool_range_end': pool_range_end,
+             'transaction_list': transaction_list,
+             'amt_available': amt_available,
+             'is_subscribed': is_subscribed}
         )
 
 ########## FUNCTIONS ##########
@@ -182,13 +199,6 @@ def stripepayment(request):
   		return render(request, 'dashboard.html')
 
 
-
-#<form action="/stripepayment/" method="POST">
-#			{% csrf_token %}
- # 			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_zVrX6MQHWxIfaXvaA8Z4pNR4" data-amount="500" data-name="fincapdev" data-description="fincapdev hack subscription ($5.00/week)" data-image="tbd" data-shipping-address="true" data-label="fincapdev hack subscription" data-panel-label="Subscribe @">
-  #			</script>
-	#	</form>
-
-
-
-
+def logout(request):
+    del request.session['friends']
+    return redirect('landing')

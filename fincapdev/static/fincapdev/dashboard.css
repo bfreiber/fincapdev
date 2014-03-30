@@ -27,3 +27,11 @@ div#debug_data {
   color: #ccc;
   display: none;
 }
+
+.posAmt {
+  color: #090;
+}
+
+.negAmt {
+  color: #900;
+}
