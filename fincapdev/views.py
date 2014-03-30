@@ -6,6 +6,7 @@ import json
 import xml.etree.ElementTree as ET
 import stripe
 from django.core.context_processors import csrf
+from helpers import json_connections
 
 ########## PAGES ##########
 
@@ -97,6 +98,8 @@ def dashboard(request):
 				if friend[0] == connections_list[i][0] and friend[1] == connections_list[i][1]:
 					friends_using_app.append(connections_list[i])
 
+                json_friends = json_connections(friends_using_app)
+
 		pic_1 = friends_using_app[0][2]
 		pic_2 = friends_using_app[1][2]
 		pic_3 = friends_using_app[2][2]
@@ -141,7 +144,8 @@ def dashboard(request):
 			'full_name_7': full_name_7,
 			'full_name_8': full_name_8,
 			'full_name_9': full_name_9,
-			'full_name_10': full_name_10})
+			'full_name_10': full_name_10,
+                        'json_friends': json_friends})
         else:
                 # Just return the dashboard for static testing
                 return render(request, 'dashboard.html')
