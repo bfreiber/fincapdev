@@ -196,7 +196,7 @@ def stripepayment(request):
  			plan="fincapdev",
   			email=email_address
 		)
-  		return render(request, 'dashboard.html')
+  		return redirect('dashboard')
 
 
 def logout(request):
