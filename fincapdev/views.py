@@ -144,7 +144,11 @@ def dashboard(request):
 			'full_name_10': full_name_10})
         else:
                 # Just return the dashboard for static testing
-                return render(request, 'dashboard.html')
+                try:
+                    from test_data import pic_1
+                except ImportError, e:
+                    print("No test_data.py data")
+                return render(request, 'dashboard.html', {'pic_1': pic_1})
 
 ########## STRIPE ##########
 def stripepayment(request):

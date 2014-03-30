@@ -102,7 +102,8 @@
     <script src="{% static "d3/d3.js" %}"></script>
     <script src="{% static "fincapdev/dashboard.js" %}"></script>
     <script>
-       showPool("#pool1img", "{% static "fincapdev/test_data3.json" %}");
+       showPool("#pool1img", "{% static "fincapdev/test_data3.json" %}",
+           '{{ pic_1 }}');
        showPool("#pool2img", "{% static "fincapdev/test_data2.json" %}"); 
     </script>
   </body>
