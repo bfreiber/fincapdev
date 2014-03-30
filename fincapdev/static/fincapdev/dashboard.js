@@ -41,7 +41,7 @@ d3.json(data, function(error, root) {
   node_circle.append("circle")
       .attr("r", NODE_RAD); // set node radius here
   node_circle.append("image")
-          .attr("xlink:href", function(d) { return d.pic; })
+          .attr("xlink:href", function(d) { return d.pic; }) // get pic attribute from json
           .attr('width', PIC_SIZE)
           .attr('height', PIC_SIZE)
           .attr('x', -PIC_SIZE / 2)
