@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import oauth2 as oauth
 import urlparse
@@ -99,6 +100,7 @@ def dashboard(request):
 					friends_using_app.append(connections_list[i])
 
                 json_friends = json_connections(friends_using_app)
+                request.session['friends'] = friends_using_app
 
 		pic_1 = friends_using_app[0][2]
 		pic_2 = friends_using_app[1][2]
@@ -148,7 +150,17 @@ def dashboard(request):
                         'json_friends': json_friends})
         else:
                 # Just return the dashboard for static testing
-                return render(request, 'dashboard.html')
+                json_friends = json_connections(request.session.get('friends'))
+                return render(request, 'dashboard.html', 
+                              {'json_friends': json_friends})
+
+def friends_list(request, range_start=None, range_end=None):
+    if range_start is not None and range_end is not None:
+        narrow_list = request.session.get('friends')[int(range_start):int(range_end) + 1]
+    else:
+        narrow_list = request.session.get('friends')
+    res = json_connections(narrow_list)
+    return HttpResponse(res, content_type="application/json")
 
 ########## STRIPE ##########
 def stripepayment(request):
