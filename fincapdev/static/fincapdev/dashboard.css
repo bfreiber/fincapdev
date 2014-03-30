@@ -25,4 +25,5 @@ div.pool {
 div#debug_data {
   margin-top: 100px;
   color: #ccc;
+  display: none;
 }
