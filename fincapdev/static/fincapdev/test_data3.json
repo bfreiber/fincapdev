@@ -4,7 +4,8 @@
   {
     "name": "John Doe 1",
     "children": [
-       {"name": "User 2", "size": 100},
+       {"name": "User 2",
+        "pic": "http://m.c.lnkd.licdn.com/mpr/mprx/0_OYjMBBBUeGKOCdepp426Bz9BHCi7CuJpypd6BqbFcbcYgHaytZDvJN1d62_l3w4r0g0bZPv9rch0"},
        {"name": "User 3", "size": 200}
     ]
   },

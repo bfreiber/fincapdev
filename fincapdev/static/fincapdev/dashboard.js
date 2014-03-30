@@ -3,7 +3,9 @@ function showPool(tgt, data) {
 console.log("Starting d3 stuff...");
 
 
-var diameter = 400;
+var diameter = 500;
+var NODE_RAD = 30;
+var PIC_SIZE = NODE_RAD * Math.sqrt(2); // half of the diagonal = radius of circle
 
 var tree = d3.layout.tree()
     .size([360, diameter / 2 - 120])
@@ -14,7 +16,7 @@ var diagonal = d3.svg.diagonal.radial()
 
 var svg = d3.select(tgt).append("svg")
     .attr("width", diameter)
-    .attr("height", diameter - 150)
+    .attr("height", diameter)
   .append("g")
     .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
@@ -34,8 +36,18 @@ d3.json(data, function(error, root) {
       .attr("class", "node")
       .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
 
-  node.append("circle")
-      .attr("r", 4.5);
+  var node_circle = node.append("g")
+  
+  node_circle.append("circle")
+      .attr("r", NODE_RAD); // set node radius here
+  node_circle.append("image")
+          .attr("xlink:href", function(d) { return d.pic; }) // get pic attribute from json
+          .attr('width', PIC_SIZE)
+          .attr('height', PIC_SIZE)
+          .attr('x', -PIC_SIZE / 2)
+          .attr('y', -PIC_SIZE / 2)
+          .attr("transform", function(d) {
+             return "rotate(" + (-d.x + 90) + ")";});
 
   node.append("text")
       .attr("dy", ".31em")
@@ -44,5 +56,5 @@ d3.json(data, function(error, root) {
       .text(function(d) { return d.name; });
 });
 
-d3.select(self.frameElement).style("height", diameter - 150 + "px");
+d3.select(self.frameElement).style("height", diameter + "px");
 }

@@ -89,8 +89,38 @@
             </div>
           </div>
 
+
+  <div id="debug_data" class="row">
+  <h1>Debug Data</h1>
+  <p>names:
+  <ol>
+     <li>{{ full_name_1 }}
+     <li>{{ full_name_2 }}
+     <li>{{ full_name_3 }}
+     <li>{{ full_name_4 }}
+     <li>{{ full_name_5 }}
+     <li>{{ full_name_6 }}
+     <li>{{ full_name_7 }}
+     <li>{{ full_name_8 }}
+     <li>{{ full_name_9 }}
+     <li>{{ full_name_10 }}
+  </ol>
+  <p>pics:
+  <ol>
+     <li>{{ pic_1 }}
+     <li>{{ pic_2 }}
+     <li>{{ pic_3 }}
+     <li>{{ pic_4 }}
+     <li>{{ pic_5 }}
+     <li>{{ pic_6 }}
+     <li>{{ pic_7 }}
+     <li>{{ pic_8 }}
+     <li>{{ pic_9 }}
+     <li>{{ pic_10}}
+  </ol>
+  </div>
         </div>
-      </div>
+ </div> 
     </div>
 
     <!-- Bootstrap core JavaScript
@@ -102,8 +132,9 @@
     <script src="{% static "d3/d3.js" %}"></script>
     <script src="{% static "fincapdev/dashboard.js" %}"></script>
     <script>
-       showPool("#pool1img", "{% static "fincapdev/test_data3.json" %}");
-       showPool("#pool2img", "{% static "fincapdev/test_data2.json" %}"); 
+       showPool("#pool1img", "{% static "fincapdev/test_data3.json" %}",
+           '{{ pic_1 }}');
+       showPool("#pool2img", "{% static "fincapdev/test_data4.json" %}"); 
     </script>
   </body>
 </html>

@@ -21,3 +21,8 @@ div.pools {
 div.pool {
   display: inline-block;
 }
+
+div#debug_data {
+  margin-top: 100px;
+  color: #ccc;
+}
