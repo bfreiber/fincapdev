@@ -63,7 +63,7 @@
             <li><a href="#">Reports</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">Pool Subscription</a></li>
+            <li><a href="">Pool Subscriptions</a></li>
             <li><a href="">Add</a></li>
             <li><a href="">Withdraw</a></li>
           </ul>
@@ -81,11 +81,21 @@
               <div id="pool1img"></div>
               <h4><a href="{% url 'network_view' 1%}">Pool 1</a></h4>
               <span class="text-muted">15 members</span>
+              <div class="subscribe">
+                <form action="/stripepayment/" method="POST">
+                  {% csrf_token %}
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_zVrX6MQHWxIfaXvaA8Z4pNR4" data-amount="500" data-name="fincapdev" data-description="fincapdev hack subscription ($5.00/week)" data-image="tbd" data-shipping-address="true" data-label="Subscribe to Pool" data-panel-label="Subscribe @">
+                  </script>
+                </form>
+              </div>
             </div>
             <div class="pool" id="pool2">
               <div id="pool2img"></div>
               <h4><a href="{% url 'network_view' 2%}">Pool 2</a></h4>
               <span class="text-muted">8 members</span>
+              <div class="subscribe">
+                <button type="button" class="btn btn-success">Subscribed</button>
+              </div>
             </div>
           </div>
 
