@@ -6,6 +6,7 @@ console.log("Starting d3 stuff...");
 var diameter = 500;
 var NODE_RAD = 30;
 var PIC_SIZE = NODE_RAD * Math.sqrt(2); // half of the diagonal = radius of circle
+var TEXT_DIST = NODE_RAD + 5;
 
 var tree = d3.layout.tree()
     .size([360, diameter / 2 - 120])
@@ -52,7 +53,8 @@ d3.json(data, function(error, root) {
   node.append("text")
       .attr("dy", ".31em")
       .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-      .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
+      .attr("transform", function(d) { return d.x < 180 ? "translate(" +
+           TEXT_DIST + ")" : "rotate(180)translate(-" + TEXT_DIST + ")"; })
       .text(function(d) { return d.name; });
 });
 
