@@ -128,6 +128,10 @@
      <li>{{ pic_9 }}
      <li>{{ pic_10}}
   </ol>
+  <p>Json:
+  <ul>
+    <li>{{ json_friends }}
+  </ul>
   </div>
         </div>
  </div> 
@@ -142,9 +146,9 @@
     <script src="{% static "d3/d3.js" %}"></script>
     <script src="{% static "fincapdev/dashboard.js" %}"></script>
     <script>
-       showPool("#pool1img", "{% static "fincapdev/test_data3.json" %}",
-           '{{ pic_1 }}');
-       showPool("#pool2img", "{% static "fincapdev/test_data4.json" %}"); 
+       var friends = {{ json_friends | safe }};
+       showPool("#pool1img", "{% url 'friendslist_range' 1 4 %}");
+       showPool("#pool2img", "{% url 'friendslist_range' 5 10 %}"); 
     </script>
   </body>
 </html>

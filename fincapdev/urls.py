@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^linkedinauthentication$', 'fincapdev.views.linkedinauthentication', name='linkedinauthentication'),
     #Stripe
     url(r'^stripepayment/$', 'fincapdev.views.stripepayment', name='stripepayment'),
-
+    url(r'^friends/$', 'fincapdev.views.friends_list', name='friends_list'),
+    url(r'^friends/(?P<range_start>\d+)-(?P<range_end>\d+)/$', 'fincapdev.views.friends_list', name='friendslist_range'),
     url(r'^admin/', include(admin.site.urls)),
 )
