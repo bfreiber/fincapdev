@@ -46,12 +46,12 @@ def network_view(request, pool_id=-1):
 ########## FUNCTIONS ##########
 
 ########## LINKEDIN ##########
-CONSUMER_KEY = '***REMOVED***'
-CONSUMER_SECRET = '***REMOVED***'
+CONSUMER_KEY = '****************'
+CONSUMER_SECRET = '****************'
 CONSUMER = oauth.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
 CLIENT = oauth.Client(CONSUMER)
-USER_TOKEN = '***REMOVED***'
-USER_SECRET = '***REMOVED***'
+USER_TOKEN = '*******-****-****-****-*******'
+USER_SECRET = '*******-****-****-****-*******'
 ETURN_URL = 'http://localhost:5000'
 PREDEFINED_STATE = 'DCEEFWF45453sdffef424' #NEEDS TO BE UPDATED
 RETURN_URI_TARGET = 'dashboard'
